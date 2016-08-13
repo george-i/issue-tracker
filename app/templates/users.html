@@ -1,0 +1,83 @@
+<div>
+    <h4 class="page-h md-headline">Utilizatori</h4>
+    <div class="panel panel-default users-page">
+        <md-toolbar class="md-accent" style="padding: 0;">
+            <div class="md-toolbar-tools">
+                <span class="md-title">Lista utilizatori</span>
+                <span flex></span>
+
+                <md-button style="font-size: 16px;" ng-click="showUsersForm()" class="md-fab md-mini md-primary">
+                    <i class="fa fa-plus"></i>
+                    <md-tooltip md-direction="left">
+                        Adauga utilizator
+                    </md-tooltip>
+
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <div class="panel-body">
+            <md-progress-linear class="loadcheck" md-mode="indeterminate" ng-if="waitServer"></md-progress-linear>
+            <md-whiteframe class="md-whiteframe-24dp col-sm-12 col-xs-12" layout layout-align="center" id="add-user" style="display: none; padding:20px;">
+                <form class="form-horizontal col-sm-12 col-xs-12">
+                    <fieldset>
+                        <div layout="column">
+                            <div class="row">
+                                <div class="col-sm-2">Nume</div>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="clnt" ng-model="newUser"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <md-button class="md-raised" ng-click="hideUsersForm()"><i class="fa fa-times"></i>  Renunta</md-button>
+                            <md-button class="md-raised md-primary" ng-click="createUser()"><i class="fa fa-check"></i>  Salveaza</md-button>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </md-whiteframe>
+            <span class="md-subhead" ng-if="users.length==0 && showNousersmsg">Nu exista utilizatori creati.</span>
+            <div class="table-responsive" ng-if="users.length>0">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                    <tr>
+                        <th>Data adaugarii</th>
+                        <th>Utilizator</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="usr in users">
+                        <td>{{getEventDate(usr.createdAt)}} {{getEventTime(usr.createdAt)}}</td>
+                        <td><span ng-if="!userEditing || userEditing._id != usr._id">{{usr.user}}</span><input type="text" class="form-control" ng-if="userEditing && userEditing._id == usr._id" ng-model="usr.user"/></td>
+                        <td>
+                            <md-button class="md-icon-button" ng-if="!userEditing || userEditing._id != usr._id" ng-click="editUser(usr)">
+                                <i class="fa fa-pencil"></i>
+                                <md-tooltip md-direction="left">Editeaza</md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button" ng-if="userEditing && userEditing._id == usr._id" ng-click="updateUser(usr)">
+                                <i class="fa fa-check"></i>
+                                <md-tooltip md-direction="left">Salveaza</md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button" ng-if="userEditing && userEditing._id == usr._id" ng-click="dismissEdit()">
+                                <i class="fa fa-times"></i>
+                                <md-tooltip md-direction="left">Renunta</md-tooltip>
+                            </md-button>
+                        </td>
+                        <td>
+                            <md-button class="md-icon-button md-warn" ng-if="!userEditing || userEditing._id != usr._id" ng-click="removeUser(usr)">
+                                <i class="fa fa-times"></i>
+                                <md-tooltip md-direction="left">Sterge</md-tooltip>
+                            </md-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>

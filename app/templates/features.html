@@ -1,0 +1,56 @@
+<div>
+    <h4 class="page-h">Features testing</h4>
+</div>
+<div class="col-sm-6">
+    <div class="panel panel-default" ng-init="getMessages()">
+        <div class="panel-heading">
+            Real time update
+        </div>
+        <div class="panel-body">
+            <blockquote>
+                {{usersMessage}}<span class="text-muted" ng-if="usersMessage==''"><small><em>Waiting for text input</em></small></span>
+            </blockquote>
+            <form role="form" class="form-inline" ng-submit="saveMessage()">
+                <div class="clearfix"></div>
+                <input ng-model="usersMessage" type="text" ng-keyup="writeMsg()" class="form-control"/>
+                <button type="submit" class="btn btn-default">Save to MongoDB</button>
+            </form>
+        </div>
+        <div class="panel-heading">
+            <span class="pull-left">Database</span>
+            <span class="pull-right"><a class="btn btn-default" ng-click="clearMessages()">Clear all</a></span>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-striped ">
+                <thead>
+                    <tr>
+                        <th><i class="fa fa-clock-o"></i></th>
+                        <th class="col-sm-11">Messages</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="mongoItems.length===0">
+                    <td></td>
+                    <td class="col-sm-11"><span class="text-muted"><small><em>No records in database.</em></small></span></td>
+                </tr>
+                <tr ng-repeat="item in mongoItems">
+                    <td>{{item.createdAt}}</td>
+                    <td class="col-sm-11">{{item.message}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="col-sm-4">
+    <h4>The logic flow</h4>
+    <ul>
+        <li>User types in textbox</li>
+        <li>socket.io transmits to all users the text</li>
+        <li>when the form is submitted, the text is saved in database and all users informed via socket.io</li>
+        <li>If the "Clear all" button is clicked, all database records are deleted and all lther users are informed via socket.io</li>
+    </ul>
+    <strong>Tip:</strong>
+    <span><em>Open the page in two browser windows to test.</em></span>
+</div>

@@ -1,0 +1,116 @@
+<div>
+    <h4 class="page-h md-headline">Rapoarte</h4>
+    <div class="panel panel-default reports-page">
+        <md-toolbar class="md-accent" style="padding: 0;">
+            <div class="md-toolbar-tools">
+                <span class="md-title">Rapoarte urgente</span>
+                <span flex></span>
+
+
+            </div>
+        </md-toolbar>
+
+        <div class="panel-body">
+            <md-progress-linear class="loadcheck" md-mode="indeterminate" ng-if="waitServer"></md-progress-linear>
+            <div class="col-sm-4">
+                <md-datepicker ng-model="report.from" md-placeholder="De la"></md-datepicker>
+                <md-datepicker ng-model="report.to" md-placeholder="Pana la"></md-datepicker>
+            </div>
+            <div class="col-sm-2">
+                <md-select ng-model="report.type" ng-change="typeChanged()" aria-label="Tip raport" >
+                    <md-option value="user" selected="true">Utilizator</md-option>
+                    <md-option value="client">Client</md-option>
+                </md-select>
+
+            </div>
+            <div class="col-sm-4">
+                <md-autocomplete
+                        md-no-cache="noCache"
+                        ng-if="report.type == 'client'"
+                        ng-model="searchTextModel"
+                        md-selected-item="selectedItem"
+                        md-search-text="searchText"
+                        md-items="item in clientsList|filter:{name:searchText}"
+                        md-item-text="item.name"
+                        md-min-length="0"
+                        md-selected-item-change="selectedItemChange(selectedItem)"
+                        placeholder="Numele clientului">
+                    <md-item-template>
+                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Clientul "{{searchText}}" nu exista.
+                    </md-not-found>
+                </md-autocomplete>
+                <md-autocomplete
+                        md-no-cache="noCache"
+                        ng-if="report.type == 'user'"
+                        ng-model="searchTextModel"
+                        md-selected-item="selectedItem"
+                        md-search-text="searchText"
+                        md-items="item in usersList|filter:{user:searchText}"
+                        md-item-text="item.user"
+                        md-min-length="0"
+                        md-selected-item-change="selectedItemChange(selectedItem)"
+                        placeholder="Numele utilizatorului">
+                    <md-item-template>
+                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.user}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Utilizatorul "{{searchText}}" nu exista.
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+            <div class="col-sm-2">
+                <md-button ng-click="updateReportTable()" class="md-raised md-primary">Genereaza</md-button>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <md-whiteframe class="md-whiteframe-24dp col-sm-12 col-xs-12" ng-if="showReports" style="padding:20px;  margin-top: 20px;">
+                <p class="md-subhead" ng-if="!hasRecords">
+                    Nu exista inregistrari pentru criteriile selectate.
+                    <a href ng-click="dismissSave()"><i class="fa fa-times"> Inchide</i></a>
+                </p>
+                <div class="table-responsive" ng-if="hasRecords">
+                    <table class="table table-striped table-hover ">
+                        <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Ora</th>
+                            <th>Client</th>
+                            <th>Pasager</th>
+                            <th>Apelant</th>
+                            <th>Problema</th>
+                            <th>Solutia</th>
+                            <th>Timp raspuns</th>
+                            <th>Utilizator</th>
+                            <th>#</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="emr in emergencies">
+                            <td>{{getEventDate(emr.issueTime)}}</td>
+                            <td>{{getEventTime(emr.issueTime)}}</td>
+                            <td>{{emr.client}}</td>
+                            <td>{{emr.passenger}}</td>
+                            <td>{{emr.callerName}}</td>
+                            <td><span class="badge">{{emr.history.length}}</span> {{emr.issue}}</td>
+                            <td>{{emr.solution}}</td>
+                            <td>{{emr.responseTime}}</td>
+                            <td>{{emr.user}}</td>
+                            <td>{{emr.ref}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pull-right" ng-if="hasRecords">
+                    <md-button class="md-raised" ng-click="dismissSave()">Renunta</md-button>
+                    <md-button class="md-raised md-warn" ng-click="saveReportTable()">Salveaza</md-button>
+
+                </div>
+            </md-whiteframe>
+        </div>
+    </div>
+
+</div>

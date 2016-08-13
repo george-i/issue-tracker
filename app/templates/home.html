@@ -1,0 +1,21 @@
+<div>
+    <h4 class="page-h md-headline">Bine ai venit</h4>
+    <div class="panel panel-default">
+        <md-toolbar class="md-accent" style="padding: 0;">
+            <div class="md-toolbar-tools">
+                <span class="md-title">Selecteaza utilizator</span>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <div class="panel-body">
+            <md-progress-linear class="loadcheck" md-mode="indeterminate" ng-if="waitServer"></md-progress-linear>
+            <md-content class="md-padding" layout-xs="column">
+                <span class="md-subhead" ng-if="users.length==0">Nu exista utilizatori creati.</span>
+                <md-card class="pull-left" ng-repeat="user in users" >
+                    <md-button style="text-transform: none;" ng-click="setActiveUser(user)">{{user.user}}</md-button>
+                </md-card>
+            </md-content>
+        </div>
+
+    </div>
+</div>

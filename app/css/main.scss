@@ -1,0 +1,255 @@
+/* Set height for footer sake! */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  /*margin-bottom: 81px;*/
+  /* Top helper for fixed navbar */
+  padding-top: 81px;
+}
+.navbar > .container .navbar-brand img{
+  max-height: 50px;
+}
+md-toast {
+  z-index: 10000;
+}
+.page-h{
+  border-bottom: 1px dotted #ccc;
+  color: darkslategrey;
+  margin: 40px 0;
+}
+.main-showcase{
+  width: 100%;
+  height: 380px;
+}
+@media all and (min-width: 768px) and (max-width: 992px) {
+  body {
+    /* Margin bottom by footer height */
+    /*margin-bottom: 70px;*/
+    /* Top helper for fixed navbar */
+    /*padding-top: 120px;*/
+  }
+}
+.navbar-header .navbar-brand img{
+  min-width:120px;
+}
+.navbar-inverse{
+  background: #fff;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.52);
+  border: none;
+}
+.navbar-inverse .navbar-nav>li>a {
+  color: #666666;
+}
+
+@media (min-width: 768px){
+  .navbar-nav > li > a {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 1.2em;
+  }
+}
+@media (max-width: 768px){
+  .navbar-brand{
+    padding: 10px 15px;
+  }
+}
+@media only screen and (max-width: 959px) and (min-width: 0) and (orientation: landscape){
+  md-toolbar {
+    min-height: 64px;
+  }
+}
+.md-open-menu-container md-menu-item{
+  .fa{
+    margin: 10px 10px 0 0;
+  }
+}
+.menubtn{
+  font-size: 14px;
+  text-transform: none;
+  font-weight: normal;
+  margin-top:4px;
+}
+md-toolbar{
+  min-height: 64px;
+  width: auto;
+  margin-top: 26px;
+
+}
+.navbar-fixed-top, .navbar-fixed-bottom{
+  z-index: 70;
+}
+.md-open-menu-container.md-active{
+  z-index: 10000;
+}
+textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, [type=text].form-control:focus, [type=password].form-control:focus, [type=email].form-control:focus, [type=tel].form-control:focus, [contenteditable].form-control:focus {
+  -webkit-box-shadow: inset 0 -2px 0 rgb(255,111,0)!important;
+  box-shadow: inset 0 -2px 0 rgb(255,111,0)!important;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+  color: #ff821a;
+  background-color: #f5f5f5;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  color: #ff821a;
+  background-color: transparent;
+}
+.user-list-select{
+  padding: 20px 0;
+}
+
+.md-datepicker-input-mask{
+  display: none;
+}
+.issuelog{
+  .hint{
+    font-size: 11px;
+    color: #838383;
+  }
+  .issinfo{
+    font-size: 12px;
+    height: 24px;
+    color: #000;
+    background: transparent;
+    padding: 2px;
+    border-bottom: none !important;
+  }
+  .issingowrap{
+    margin-right: 10px;
+  }
+  md-toolbar.md-accent{
+    background-color: #BDBBBB !important;
+    color: rgba(0,0,0,0.87);
+  }
+  .dellink,.editlink,.checklink{
+    margin-top: 9px;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  .issgroup{
+    padding: 5px;
+    .md-subhead{
+      width: 100%;
+      margin-bottom: 10px;
+      color: #000;
+    }
+    textarea{
+      color: #000;
+      font-size: 14px;
+    }
+  }
+  .md-datepicker-input-mask{
+    display: none;
+  }
+  md-datepicker{
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    background: transparent;
+
+    .md-datepicker-button{
+      display: none;
+    }
+    .md-datepicker-input-container{
+      margin: 0;
+      padding: 0;
+      display: block;
+      margin-top: -1px;
+      input{
+        margin: 0;
+        font-size: 12px;
+        height: 24px;
+        color: #000;
+        background: transparent;
+        padding: 2px;
+      }
+    }
+  }
+}
+
+
+
+.emergency-page,.clients-page, .users-page{
+  .table-hover>tbody>tr, .table-hover>tbody>tr>th, .table-hover>tbody>tr>td{
+    vertical-align: middle;
+  }
+  .md-whiteframe-1dp, .md-whiteframe-z1{
+    box-shadow: none;
+  }
+  md-autocomplete-wrap input{
+    border-bottom: 1px solid #DDD;
+    padding: 0;
+    font-size: 16px;
+    color: #666;
+  }
+  md-autocomplete-wrap input:focus{
+    -webkit-box-shadow: inset 0 -2px 0 rgb(255,111,0)!important;
+    box-shadow: inset 0 -2px 0 rgb(255,111,0)!important;
+  }
+
+  .md-datepicker-input-container{
+    margin-left: 0;
+  }
+  .md-datepicker-button {
+    display: none;
+  }
+  .hint{
+    color: rgb(175, 175, 175);
+  }
+  form{
+    .row{
+      margin-left: -15px;
+      margin-right: -15px;
+      border-bottom-width: 1px;
+      border-bottom-style: dotted;
+      margin: 0 0 16px;
+      border-bottom-color: rgba(0,150,136,.2);
+    }
+  }
+}
+
+.md-datepicker-input-mask {
+  height: 50px;
+}
+.md-datepicker-triangle-button.md-button.md-icon-button,.md-datepicker-input{
+  margin-top: 4px;
+}
+.md-datepicker-triangle-button.md-button.md-icon-button {
+  height: 10px;
+  width: 36px;
+}
+md-progress-linear.loadcheck .md-container{
+  height:1px;
+  margin-top: -15px;
+}
+.reports-page{
+  .panel-body .md-raised.md-primary.md-button.md-ink-ripple{
+    margin-top: 12px;
+  }
+  md-select{
+    margin: 14px 0 0;
+  }
+  md-select-value span{
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  md-autocomplete{
+    margin-top: 12px;
+  }
+}
+
+md-dialog .md-actions, md-dialog md-dialog-actions{
+  width: 100%;
+  border-top: 1px dotted #D8D4D4;
+}
+
+.issuecount{
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}

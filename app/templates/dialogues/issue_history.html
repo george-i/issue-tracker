@@ -1,0 +1,138 @@
+<md-dialog aria-label="Istoric urgenta" style=" width: 100%;"  ng-cloak>
+
+    <md-toolbar class="md-accent" style="margin-top:0">
+        <div class="md-toolbar-tools">
+            <h1 class="md-title" style="color:#fff; padding-top: 5px;">
+                Istoric urgenta {{selectedIssueLog.ref}}
+                <br>
+                <span class="md-caption" style="color: #DFDFDF;">
+                    Apelant: {{selectedIssueLog.callerName}}
+                    <span ng-if="selectedIssueLog.callerEmail && selectedIssueLog.callerEmail.length>0">, email: <a style="color: #EEAE9A;" href="mailto:{{selectedIssueLog.callerEmail}}">{{selectedIssueLog.callerEmail}}</a></span>
+                    <span ng-if="selectedIssueLog.callerPhone && selectedIssueLog.callerPhone.length>0">, telefon: {{selectedIssueLog.callerPhone}}</span>
+                </span>
+            </h1>
+            <span flex></span>
+
+            <md-button href class="md-icon-button md-primary md-raised" ng-if="activeUser" ng-click="showNewIssue(true);" style="margin-top: 6px;color:#616161" >
+                <i class="fa fa-plus" aria-label="Add issue"></i>
+            </md-button>
+            <md-button href class="md-icon-button md-accent md-raised" style="margin-top: 6px;color:#fff" ng-click="closeWithSave(false)">
+                <i class="fa fa-times" aria-label="Close dialog"></i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content style="background: #F1F1F1;">
+        <div class="md-dialog-content issuelog">
+            <div ng-show="displayNewIssue" class="md-whiteframe-24dp" style="margin-bottom:20px;background: #fff">
+                <form ng-submit="newIssueAdd(newLogIssue)">
+                    <div style="min-height: 52px;">
+                        <div layout="row" style="padding: 5px;    border-bottom: 1px solid #eee;">
+                            <div class="issingowrap">
+                                <div class="hint">Ziua</div>
+                                <md-datepicker ng-model="newLogIssue.date"></md-datepicker>
+                            </div>
+                            <div class="issingowrap">
+                                <div class="hint">Ora</div>
+                                <input type='number' class="issinfo form-control" required min="0" max="23" ng-model="newLogIssue.hour">
+                            </div>
+                            <div class="issingowrap">
+                                <div class="hint">Minute</div>
+                                <input type='number' class="issinfo form-control" required min="0" max="59" ng-model="newLogIssue.minutes">
+                            </div>
+                            <div class="issingowrap">
+                                <div class="hint">Timp raspuns</div>
+                                <input type='number' class="issinfo form-control" required ng-model="newLogIssue.responseTime"/>
+                            </div>
+                            <span flex></span>
+                            <md-button class="md-icon-button" ng-click="showNewIssue(false);" href tabindex="-1">
+                                <i class="fa fa-times"></i>
+                                <md-tooltip md-direction="left">Renunta</md-tooltip>
+                            </md-button>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="50" class="issgroup">
+                            <div class="md-subhead">Problema</div>
+                            <textarea rows="3" spellcheck="false" ng-model="newLogIssue.issue" required class="form-control"></textarea>
+                        </div>
+                        <div flex="50" class="issgroup">
+                            <div class="md-subhead">Solutia</div>
+                            <textarea rows="3" spellcheck="false" ng-model="newLogIssue.solution" required class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div layout="row" style="padding: 5px;border-top: 1px solid #eee;">
+                        <span flex></span>
+                        <md-button class="md-icon-button md-warn" type="submit" tabindex="-1">
+                            <i class="fa fa-check"></i>
+                            <md-tooltip md-direction="left">Adauga</md-tooltip>
+                        </md-button>
+                    </div>
+                </form>
+            </div>
+
+            <div ng-repeat="logIssue in selectedIssueLog.history | orderBy:'-issueTime'" class="md-whiteframe-1dp" ng-class="{'md-whiteframe-24dp':logIssue.enabled}" style="margin-bottom:20px;background: #fff">
+                <form ng-submit="closeIssueEdit(logIssue)">
+                    <div style="min-height: 52px;">
+                        <div layout="row" style="padding: 5px; border-bottom: 1px solid #eee;">
+                            <div class="issingowrap">
+                                <div class="hint">Ziua</div>
+                                <md-datepicker ng-disabled="!logIssue.enabled" ng-model="logIssue.date"></md-datepicker>
+                            </div>
+                            <div class="issingowrap">
+                                <div class="hint">Ora</div>
+                                <input type='number' ng-disabled="!logIssue.enabled" class="issinfo form-control" value="{{logIssue.hour}}" required min="0" max="23" ng-model="logIssue.hour">
+                            </div>
+                            <div class="issingowrap">
+                                <div class="hint">Minute</div>
+                                <input type='number' ng-disabled="!logIssue.enabled" class="issinfo form-control" value="{{logIssue.minutes}}" required min="0" max="59" ng-model="logIssue.minutes">
+                            </div>
+                            <div class="issingowrap">
+                                <div class="hint">Timp raspuns</div>
+                                <input type='number' ng-disabled="!logIssue.enabled" class="issinfo form-control" value="{{logIssue.responseTime}}" required ng-model="logIssue.responseTime"/>
+                            </div>
+                            <span flex></span>
+                            <md-button class="md-icon-button" ng-if="activeUser && !logIssue.enabled" ng-click="removeItem($index)" href tabindex="-1">
+                                <i class="fa fa-times"></i>
+                                <md-tooltip md-direction="left">Sterge</md-tooltip>
+                            </md-button>
+                        </div>
+
+                    </div>
+                    <div layout="row">
+                        <div flex="50" class="issgroup">
+                            <div class="md-subhead">Problema</div>
+                            <div ng-if="!logIssue.enabled">{{logIssue.issue}}</div>
+                            <textarea ng-if="logIssue.enabled" rows="8" spellcheck="false" ng-model="logIssue.issue" required class="form-control"></textarea>
+                        </div>
+                        <div flex="50" class="issgroup">
+                            <div class="md-subhead">Solutia</div>
+                            <div ng-if="!logIssue.enabled">{{logIssue.solution}}</div>
+                            <textarea ng-if="logIssue.enabled" rows="8" spellcheck="false" ng-model="logIssue.solution" required class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div layout="row" style="padding: 5px;border-top: 1px solid #eee;" ng-if="activeUser">
+                        <span flex></span>
+                        <md-button class="md-icon-button md-warn" tabindex="-1" ng-if="!logIssue.enabled" ng-click="logIssue.enabled = true;" class="editlink">
+                            <i class="fa fa-pencil"></i>
+                            <md-tooltip md-direction="left">Editeaza</md-tooltip>
+                        </md-button>
+                        <md-button class="md-icon-button md-warn" type="submit" ng-click="" tabindex="-1" ng-if="logIssue.enabled" class="checklink">
+                            <i class="fa fa-check"></i>
+                            <md-tooltip md-direction="left">Inchide</md-tooltip>
+                        </md-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" ng-if="activeUser">
+        <span flex></span>
+        <md-button ng-click="closeWithSave(false)">
+            Renunta
+        </md-button>
+        <md-button class="md-warn" type="submit" ng-click="closeWithSave(true)" style="margin-right:20px;">
+            Salveaza
+        </md-button>
+    </md-dialog-actions>
+
+</md-dialog>

@@ -1,0 +1,47 @@
+<div>
+    <h4 class="page-h md-headline">Apelanti</h4>
+    <div class="panel panel-default">
+        <md-toolbar class="md-accent" style="padding: 0;">
+            <div class="md-toolbar-tools">
+                <span class="md-title">Lista apelanti</span>
+                <span flex></span>
+                <input class="form-control" style="max-width: 114px;color: #F9F9F9;" placeholder="Cauta apelant" ng-model="searchText">
+
+            </div>
+        </md-toolbar>
+
+        <div class="panel-body">
+            <md-progress-linear class="loadcheck" md-mode="indeterminate" ng-if="waitServer"></md-progress-linear>
+            <span class="md-subhead" ng-if="callers.length==0 && showNocallersmsg">Nu exista apelanti creati.</span>
+            <div class="table-responsive" ng-if="callers.length>0">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Apelant</th>
+                        <th>Telefon</th>
+                        <th>Email</th>
+                        <th></th>                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="clt in callers|filter:{name:searchText}">
+                        <td>{{clt.clientName}}</td>
+                        <td>{{clt.name}}</td>
+                        <td>{{getNiceInfo(clt.phone)}}</td>
+                        <td>{{getNiceInfo(clt.email)}}</td>
+                        <td>
+                            <md-button class="md-icon-button md-warn" ng-if="activeUser" ng-click="removeCaller(clt)">
+                                <i class="fa fa-times"></i>
+                                <md-tooltip md-direction="left">Sterge</md-tooltip>
+                            </md-button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
